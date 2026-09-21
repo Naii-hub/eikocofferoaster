@@ -216,7 +216,7 @@
                 <h3 class="font-bold text-gray-900 dark:text-white">Pesanan Terbaru</h3>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Perlu ditindaklanjuti</p>
             </div>
-            <a href="{{ route('admin.pesanan.index') }}" class="px-4 py-2 bg-coffee-600 hover:bg-coffee-700 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+            <a href="{{ route('admin.pesanan.index') }}"  class="px-4 py-2 bg-coffee-600 hover:bg-coffee-700 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
                 <i class="fas fa-shopping-cart w-5 {{ request()->routeIs('admin.pesanan.*') ? 'text-coffee-600' : 'text-coffee-500' }}"></i>
                 <span>Pesanan</span>
                 <span class="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">5</span>

@@ -105,8 +105,9 @@
                     <span>Dashboard</span>
                 </a>
                 
-                <a href="{{ route('admin.pesanan') }}" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.pesanan') ? 'bg-coffee-50 dark:bg-coffee-900/20 text-coffee-700 dark:text-coffee-400 border-l-4 border-coffee-500' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700/50' }}">
-                    <i class="fas fa-shopping-cart w-5 {{ request()->routeIs('admin.pesanan') ? 'text-coffee-600' : 'text-coffee-500' }}"></i>
+                <!-- PERHATIKAN BARIS INI: ada '.index' dan '.*' -->
+                <a href="{{ route('admin.pesanan.index') }}" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.pesanan.*') ? 'bg-coffee-50 dark:bg-coffee-900/20 text-coffee-700 dark:text-coffee-400 border-l-4 border-coffee-500' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700/50' }}">
+                    <i class="fas fa-shopping-cart w-5 {{ request()->routeIs('admin.pesanan.*') ? 'text-coffee-600' : 'text-coffee-500' }}"></i>
                     <span>Pesanan</span>
                     <span class="ml-auto bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">5</span>
                 </a>
