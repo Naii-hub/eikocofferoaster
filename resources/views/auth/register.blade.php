@@ -1,52 +1,79 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+@extends('layouts.auth-split')
+
+@section('title', 'Register - EIKO Coffee Roaster')
+
+@section('form')
+    <div class="text-center lg:text-left mb-8">
+        <h2 class="font-display text-2xl lg:text-3xl font-bold text-slate-900 uppercase tracking-wide">Daftar Akun</h2>
+        <p class="text-sm text-slate-500 mt-2">Buat akun untuk mengelola dashboard EIKO.</p>
+    </div>
+
+    @if ($errors->any())
+        <div class="mb-6 flex items-center gap-3 bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>{{ Arr::first($errors->all()) }}</span>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('register') }}" class="space-y-5">
         @csrf
-
-        <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <label class="block text-slate-700 text-sm font-semibold mb-1.5">Nama Lengkap</label>
+            <div class="relative">
+                <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name"
+                    placeholder="Nama Anda"
+                    class="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition-all text-slate-900 placeholder:text-slate-400" />
+            </div>
+            @error('name')
+                <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div>
+            <label class="block text-slate-700 text-sm font-semibold mb-1.5">Email Address</label>
+            <div class="relative">
+                <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="email" name="email" value="{{ old('email') }}" required autocomplete="username"
+                    placeholder="admin@eiko.coffee"
+                    class="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition-all text-slate-900 placeholder:text-slate-400" />
+            </div>
+            @error('email')
+                <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div>
+            <label class="block text-slate-700 text-sm font-semibold mb-1.5">Password</label>
+            <div class="relative">
+                <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="password" name="password" required autocomplete="new-password"
+                    placeholder="••••••••"
+                    class="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition-all text-slate-900 placeholder:text-slate-400" />
+            </div>
+            @error('password')
+                <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div>
+            <label class="block text-slate-700 text-sm font-semibold mb-1.5">Konfirmasi Password</label>
+            <div class="relative">
+                <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="password" name="password_confirmation" required autocomplete="new-password"
+                    placeholder="••••••••"
+                    class="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition-all text-slate-900 placeholder:text-slate-400" />
+            </div>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+        <button type="submit"
+            class="w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:from-red-700 hover:to-red-800 transition-all transform hover:-translate-y-0.5">
+            Daftar Akun
+        </button>
     </form>
-</x-guest-layout>
+
+    <p class="mt-8 text-center text-sm text-slate-500">
+        Sudah punya akun?
+        <a href="{{ route('login') }}" class="font-semibold text-brand-red hover:text-coffee-700 hover:underline">Masuk di sini</a>
+    </p>
+@endsection

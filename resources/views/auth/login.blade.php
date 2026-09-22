@@ -1,58 +1,64 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - Kopi Mesin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        coffee: { 50: '#fdf8f0', 100: '#f9edd9', 500: '#db7f2e', 600: '#cd6624', 700: '#ab4d1f', 800: '#8a3e20' }
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gradient-to-br from-coffee-50 to-gray-100 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-100">
-        <div class="text-center mb-8">
-            <div class="w-16 h-16 bg-gradient-to-br from-coffee-500 to-coffee-700 rounded-2xl mx-auto flex items-center justify-center mb-4 shadow-lg animate-pulse">
-                <i class="fas fa-mug-hot text-white text-2xl"></i>
+@extends('layouts.auth-split')
+
+@section('title', 'Login Admin - EIKO Coffee Roaster')
+
+@section('form')
+    <div class="text-center lg:text-left mb-8">
+        <h2 class="font-display text-2xl lg:text-3xl font-bold text-slate-900 uppercase tracking-wide">Login</h2>
+        <p class="text-sm text-slate-500 mt-2">Silakan masuk untuk mengelola dashboard EIKO.</p>
+    </div>
+
+    @if ($errors->any())
+        <div class="mb-6 flex items-center gap-3 bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>{{ $errors->first() }}</span>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('login') }}" class="space-y-5">
+        @csrf
+        <div>
+            <label class="block text-slate-700 text-sm font-semibold mb-1.5">Email Address</label>
+            <div class="relative">
+                <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="email"
+                    placeholder="example@eiko.coffee"
+                    class="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition-all text-slate-900 placeholder:text-slate-400" />
             </div>
-            <h1 class="text-2xl font-bold text-gray-800">Login Admin</h1>
-            <p class="text-gray-500 text-sm mt-2">Silakan masuk untuk mengelola dashboard</p>
+            @error('email')
+                <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+            @enderror
         </div>
 
-        @if ($errors->any())
-            <div class="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded mb-6 text-sm">
-                {{ $errors->first() }}
+        <div>
+            <label class="block text-slate-700 text-sm font-semibold mb-1.5">Password</label>
+            <div class="relative">
+                <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="password" name="password" required autocomplete="current-password"
+                    placeholder="••••••••"
+                    class="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition-all text-slate-900 placeholder:text-slate-400" />
             </div>
-        @endif
+            @error('password')
+                <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="mb-5">
-                <label class="block text-gray-700 text-sm font-semibold mb-2">Email Address</label>
-                <input type="email" name="email" value="{{ old('email') }}" required autofocus
-                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-coffee-500 focus:border-transparent transition-all" placeholder="admin@kopimesin.id">
-            </div>
+        <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer select-none">
+                <input type="checkbox" name="remember"
+                    class="rounded border-slate-300 text-brand-red focus:ring-brand-red focus:ring-offset-0" />
+                Ingat saya
+            </label>
+        </div>
 
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
-                <input type="password" name="password" required
-                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-coffee-500 focus:border-transparent transition-all" placeholder="••••••••">
-            </div>
+        <button type="submit"
+            class="w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:from-red-700 hover:to-red-800 transition-all transform hover:-translate-y-0.5">
+            Masuk ke Dashboard
+        </button>
+    </form>
 
-            <button type="submit"
-                class="w-full bg-gradient-to-r from-coffee-600 to-coffee-700 text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:from-coffee-700 hover:to-coffee-800 transition-all transform hover:-translate-y-0.5">
-                Masuk ke Dashboard
-            </button>
-        </form>
-    </div>
-</body>
-</html>
+    <p class="mt-8 text-center text-sm text-slate-500">
+        Belum punya akun?
+        <a href="{{ route('register') }}" class="font-semibold text-brand-red hover:text-coffee-700 hover:underline">Daftar sekarang</a>
+    </p>
+@endsection
