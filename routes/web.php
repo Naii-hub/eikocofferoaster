@@ -21,8 +21,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     
 // Routes Pesanan
 Route::resource('pesanan', \App\Http\Controllers\Admin\PesananController::class);
-    Route::get('/produk', function () { return view('layouts.admin'); })->name('produk');
-    Route::get('/pembayaran', function () { return view('layouts.admin'); })->name('pembayaran');
+    Route::get('/produk', function () { return view('admin.produk.index'); })->name('produk');
+    Route::get('/pembayaran', function () { return view('admin.pembayaran.index'); })->name('pembayaran');
     Route::get('/pengiriman', function () { return view('layouts.admin'); })->name('pengiriman');
     Route::get('/stok', function () { return view('layouts.admin'); })->name('stok');
     Route::get('/pelanggan', function () { return view('layouts.admin'); })->name('pelanggan');
